@@ -31,9 +31,7 @@ public class TheEndGenerator extends ChunkGenerator
     
     protected static final int WORLD_DEPTH = 128;
 
-    private static final Set<Material> noSpawnFloors = new HashSet<>(Arrays.asList(Material.FIRE, Material.CACTUS));
     private final Map<String, Map<String, OctaveGenerator>> octaveCache = new HashMap<>();
-    private final List<BlockPopulator> populators = new ArrayList<>();
     
     private final double[][][] density = new double[3][3][33];
     
