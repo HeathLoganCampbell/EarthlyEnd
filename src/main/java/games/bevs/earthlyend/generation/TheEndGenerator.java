@@ -1,13 +1,10 @@
 package games.bevs.earthlyend.generation;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -17,7 +14,9 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.util.noise.OctaveGenerator;
 
+import games.bevs.earthlyend.populator.GrassPopulator;
 import games.bevs.earthlyend.populator.TheEndPopulator;
+import games.bevs.earthlyend.populator.TreePopulator;
 import net.glowstone.util.noise.PerlinOctaveGenerator;
 
 public class TheEndGenerator extends ChunkGenerator
@@ -47,12 +46,12 @@ public class TheEndGenerator extends ChunkGenerator
     
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        return Arrays.asList(new TheEndPopulator());
+        return Arrays.asList(new TheEndPopulator(), new GrassPopulator(), new TreePopulator());
     }
 
     public boolean canSpawn(World world, int x, int z) {
         final Block block = world.getHighestBlockAt(x, z).getRelative(BlockFace.DOWN);
-        return block.getType() == Material.ENDER_STONE;
+        return block.getType() == Material.STONE;
     }
 
     protected void createWorldOctaves(World world, Map<String, OctaveGenerator> octaves) {
@@ -102,7 +101,11 @@ public class TheEndGenerator extends ChunkGenerator
                             for (int n = 0; n < 8; n++) {
                                 // any density higher than 0 is ground, any density lower or equal to 0 is air.
                                 if (dens > 0) {
-                                    chunkData.setBlock(m + (i << 3), l + (k << 2), n + (j << 3), Material.ENDER_STONE);
+                                	int x = m + (i << 3);
+                                	int y = l + (k << 2);
+                                	int z = n + (j << 3);
+                                	
+                                    chunkData.setBlock(x, y, z, Material.STONE);
                                 }
                                 // interpolation along z
                                 dens += (d10 - d9) / 8;
@@ -121,7 +124,7 @@ public class TheEndGenerator extends ChunkGenerator
                 }
             }
         }
-
+        
         return chunkData;
     }
     

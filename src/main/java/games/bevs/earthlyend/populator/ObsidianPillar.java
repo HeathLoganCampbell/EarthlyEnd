@@ -1,15 +1,19 @@
 package games.bevs.earthlyend.populator;
 
+import java.util.Random;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
-import java.util.Random;
+import games.bevs.earthlyend.utils.MathUtils;
 
 public class ObsidianPillar {
+	
+	private static final Material[] PILLAR_BLOCKS = new Material[]{Material.SMOOTH_BRICK, Material.SMOOTH_BRICK, Material.SMOOTH_BRICK, Material.SMOOTH_BRICK,Material.SMOOTH_BRICK, Material.COBBLESTONE, Material.COBBLESTONE, Material.COBBLESTONE, Material.AIR}; 
 
     public void generate(World world, Random random, int sourceX, int sourceY, int sourceZ) {
-        if (world.getBlockAt(sourceX, sourceY, sourceZ).isEmpty() && world.getBlockAt(sourceX, sourceY - 1, sourceZ).getType() == Material.ENDER_STONE) {
+        if (world.getBlockAt(sourceX, sourceY, sourceZ).isEmpty() && world.getBlockAt(sourceX, sourceY - 1, sourceZ).getType() == Material.STONE) {
 
             int height = random.nextInt(32) + 6;
             int radius = random.nextInt(4) + 1;
@@ -17,7 +21,7 @@ public class ObsidianPillar {
             // check under the pillar that there's no gap
             for (int i = -radius; i <= radius; i++) {
                 for (int j = -radius; j <= radius; j++) {
-                    if (i * i + j * j <= (radius * radius + 1) && world.getBlockAt(sourceX + i, sourceY - 1, sourceZ + j).getType() != Material.ENDER_STONE) {
+                    if (i * i + j * j <= (radius * radius + 1) && world.getBlockAt(sourceX + i, sourceY - 1, sourceZ + j).getType() != Material.STONE) {
                         return;
                     }
                 }
@@ -29,7 +33,7 @@ public class ObsidianPillar {
                     for (int j = -radius; j <= radius; j++) {
                         if (i * i + j * j <= radius * radius + 1) {
                             final Block block = world.getBlockAt(sourceX + i, sourceY + k, sourceZ + j);
-                            block.setType(Material.OBSIDIAN);
+                            block.setType(PILLAR_BLOCKS[MathUtils.random(PILLAR_BLOCKS.length) - 1]);
                         }
                     }
                 }

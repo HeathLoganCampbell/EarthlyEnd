@@ -1,8 +1,8 @@
 package net.glowstone.util.noise;
 
-import org.bukkit.util.noise.NoiseGenerator;
-
 import java.util.Random;
+
+import org.bukkit.util.noise.NoiseGenerator;
 
 public class SimplexOctaveGenerator extends PerlinOctaveGenerator {
 

@@ -1,8 +1,8 @@
 package net.glowstone.util.noise;
 
-import org.bukkit.util.noise.PerlinNoiseGenerator;
-
 import java.util.Random;
+
+import org.bukkit.util.noise.PerlinNoiseGenerator;
 
 public class PerlinNoise extends PerlinNoiseGenerator {
 
