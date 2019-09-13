@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 
 import games.bevs.earthlyend.utils.MathUtils;
@@ -28,12 +29,20 @@ public class GrassPopulator extends BlockPopulator {
 				if (2 > heighestBlock)
 					continue;
 
-				if (world.getBlockAt(realX, heighestBlock - 1, realZ).getType() != Material.STONE)
+				Block topBlock = world.getBlockAt(realX, heighestBlock - 1, realZ);
+				while(topBlock.getType() != Material.STONE)
+				{
+					topBlock = topBlock.getRelative(0, -1, 0);
+					if(topBlock.getY() < 20)
+						break;
+				}
+				
+				if(topBlock.getType() != Material.STONE)
 					continue;
 
-				world.getBlockAt(realX, heighestBlock, realZ).setType(Material.GRASS);
+				topBlock.setType(Material.GRASS);
 				for (int i = 1; i < MathUtils.random(4); i++)
-					world.getBlockAt(realX, heighestBlock - i, realZ).setType(Material.DIRT);
+					topBlock.getRelative(0, -i, 0).setType(Material.DIRT);
 			}
 		}
 
@@ -45,6 +54,16 @@ public class GrassPopulator extends BlockPopulator {
 	        
 	        Block block = world.getBlockAt(realX, heighestBlock, realZ);
 			world.generateTree(block.getLocation(), TreeType.TREE);
+	    }
+	    
+	    if (random.nextInt(100) < 10) 
+	    {
+	    	int realX = (chunk.getX() << 4) +  random.nextInt(15);
+	        int realZ =(chunk.getZ() << 4) + random.nextInt(15);
+	        int heighestBlock = world.getHighestBlockYAt(realX, realZ);
+	        
+	        Block block = world.getBlockAt(realX, heighestBlock, realZ);
+	        new Lake(Material.STATIONARY_WATER).generate(world, random, realX, heighestBlock, realZ);
 	    }
 	}
 }

@@ -2,9 +2,11 @@ package games.bevs.earthlyend.populator;
 
 import java.util.Random;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 
 import games.bevs.earthlyend.utils.MathUtils;
 
@@ -40,8 +42,9 @@ public class ObsidianPillar {
             }
 
             // TODO: uncomment when entities are functional
-            //final Location loc = new Location(world, sourceX + 0.5D, sourceY + height, sourceZ + 0.5D, random.nextFloat() * 360, 0);
-            //world.spawnEntity(loc, EntityType.ENDER_CRYSTAL);
+            
+            final Location loc = new Location(world, sourceX + 0.5D, sourceY + height, sourceZ + 0.5D, random.nextFloat() * 360, 0);
+            world.spawnEntity(loc, EntityType.ENDER_CRYSTAL);
             //
             // It still unclear to me what they are doing with a bedrock inlaid with obsidian under
             // the endercrystals. I've let that bedrock on top of the pillar to remember about this...
