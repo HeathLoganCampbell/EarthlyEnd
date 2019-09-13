@@ -45,6 +45,58 @@ public class GrassPopulator extends BlockPopulator {
 					topBlock.getRelative(0, -i, 0).setType(Material.DIRT);
 			}
 		}
+		
+		int X, Y, Z;
+		boolean isStone;
+		for (int i = 1; i < 15; i++) {  // Number of tries
+		    if (random.nextInt(100) < 60) {  // The chance of spawning
+			X = random.nextInt(15);
+			Z = random.nextInt(15);
+			Y = random.nextInt(40)+20;  // Get randomized coordinates
+			if (chunk.getBlock(X, Y, Z).getType() == Material.STONE) {
+				isStone = true;
+				while (isStone) {
+					chunk.getBlock(X, Y, Z).setType(Material.COAL_ORE);
+					if (random.nextInt(100) < 40)  {   // The chance of continuing the vein
+						switch (random.nextInt(5)) {  // The direction chooser
+						case 0: X++; break;
+						case 1: Y++; break;
+						case 2: Z++; break;
+						case 3: X--; break;
+						case 4: Y--; break;
+						case 5: Z--; break;
+						}
+						isStone = (chunk.getBlock(X, Y, Z).getType() == Material.STONE) && (chunk.getBlock(X, Y, Z).getType() != Material.COAL_ORE);
+					} else isStone = false;
+				}
+			}
+		    }
+		}
+		
+		for (int i = 1; i < 15; i++) {  // Number of tries
+		    if (random.nextInt(100) < 60) {  // The chance of spawning
+			X = random.nextInt(15);
+			Z = random.nextInt(15);
+			Y = random.nextInt(40)+20;  // Get randomized coordinates
+			if (chunk.getBlock(X, Y, Z).getType() == Material.STONE) {
+				isStone = true;
+				while (isStone) {
+					chunk.getBlock(X, Y, Z).setType(Material.IRON_ORE);
+					if (random.nextInt(100) < 40)  {   // The chance of continuing the vein
+						switch (random.nextInt(5)) {  // The direction chooser
+						case 0: X++; break;
+						case 1: Y++; break;
+						case 2: Z++; break;
+						case 3: X--; break;
+						case 4: Y--; break;
+						case 5: Z--; break;
+						}
+						isStone = (chunk.getBlock(X, Y, Z).getType() == Material.STONE) && (chunk.getBlock(X, Y, Z).getType() != Material.IRON_ORE);
+					} else isStone = false;
+				}
+			}
+		    }
+		}
 
 		int amount = random.nextInt(4)+1;  // Amount of trees
 	    for (int i = 1; i < amount; i++) {
